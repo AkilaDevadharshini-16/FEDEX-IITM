@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manager Dashboard</title>
+  <link rel="stylesheet" href="../dist/output.css">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-purple-700 text-white px-6 py-4 flex justify-between items-center">
+  <h1 class="font-bold text-lg">FedEx Manager Dashboard</h1>
+  <a href="#" onclick="logout()" class="underline text-sm">Logout</a>
+</nav>
+
+<!-- ✅ ADDED: WELCOME TEXT -->
+<div class="px-6 py-3 bg-white shadow-sm">
+  <h2 id="welcomeText" class="text-lg font-semibold text-gray-700">
+    Welcome 👋
+  </h2>
+</div>
+
+<!-- 🔹 CHATBOT (FIXED – SAME AS CUSTOMER) -->
+<div id="chatbot"
+     class="fixed top-32 right-4 w-80 bg-white shadow-lg rounded-lg border z-50">
+
+  <div class="bg-purple-700 text-white p-3 font-semibold rounded-t-lg">
+    🤖 Help Bot
+  </div>
+
+  <div id="chatMessages" class="h-64 overflow-y-auto p-3 text-sm space-y-2">
+    <div class="text-gray-600">
+      Hi 👋 Manager! Need help?
+    </div>
+  </div>
+
+  <div class="flex border-t">
+    <input id="chatInput" type="text"
+      placeholder="Type your message..."
+      class="flex-1 p-2 text-sm outline-none" />
+    <button onclick="sendMessage()"
+      class="bg-purple-700 text-white px-4 text-sm">
+      Send
+    </button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="p-6">
+
+  <h2 class="text-xl font-semibold mb-4">Cases</h2>
+
+  <!-- SUMMARY CARDS -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <div class="bg-white rounded shadow p-4 border-l-4 border-purple-700">
+      <h3 class="text-gray-500 text-sm">Total Cases</h3>
+      <p id="totalCases" class="text-3xl font-bold">0</p>
+    </div>
+
+    <div class="bg-white rounded shadow p-4 border-l-4 border-red-600">
+      <h3 class="text-gray-500 text-sm">Overdue Cases</h3>
+      <p id="overdueCases" class="text-3xl font-bold text-red-600">0</p>
+    </div>
+
+    <div class="bg-white rounded shadow p-4 border-l-4 border-green-600">
+      <h3 class="text-gray-500 text-sm">Approved Cases</h3>
+      <p id="approvedCases" class="text-3xl font-bold text-green-600">0</p>
+    </div>
+  </div>
+
+  <div class="bg-white p-4 rounded shadow">
+    <table class="w-full border">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="p-2">Customer</th>
+          <th class="p-2">DCA</th>
+          <th class="p-2">Amount</th>
+          <th class="p-2">Status</th>
+          <th class="p-2">SLA</th>
+          <th class="p-2">Approval</th>
+          <th class="p-2">Timeline</th>
+          <th class="p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="caseTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="../src/js/auth.js"></script>
+<script src="../src/js/manager.js"></script>
+
+<!-- CHATBOT SCRIPT -->
+<script>
+function sendMessage() {
+  const i = chatInput.value.trim();
+  if (!i) return;
+  chatMessages.innerHTML += `<div class="text-right"><span class="bg-purple-100 px-2 py-1 rounded">${i}</span></div>`;
+  setTimeout(() => {
+    chatMessages.innerHTML += `<div class="text-left"><span class="bg-gray-200 px-2 py-1 rounded">Manager help ready ✅</span></div>`;
+  }, 400);
+  chatInput.value = "";
+}
+</script>
+
+<!-- ✅ ADDED: WELCOME SCRIPT -->
+<script>
+const userData = JSON.parse(localStorage.getItem("user"));
+if (userData && userData.username) {
+  document.getElementById("welcomeText").innerText =
+    `Welcome, ${userData.username} 👋`;
+}
+</script>
+
+</body>
+</html>

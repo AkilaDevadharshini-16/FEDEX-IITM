@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <link rel="stylesheet" href="../dist/output.css" />
+</head>
+
+<body class="bg-gray-100 flex justify-center items-center min-h-screen">
+
+<div class="bg-white p-6 rounded shadow w-96">
+  <h2 class="text-xl font-bold mb-4 text-center">Login</h2>
+
+  <!-- ROLE -->
+  <select id="role" class="border w-full p-2 mb-3 rounded">
+    <option value="">Select Role</option>
+    <option value="manager">Manager</option>
+    <option value="dca">DCA</option>
+    <option value="customer">Customer</option>
+  </select>
+
+  <!-- USERNAME -->
+  <input
+    id="username"
+    placeholder="Username"
+    class="border w-full p-2 mb-3 rounded"
+  />
+
+  <!-- PASSWORD WITH EYE -->
+  <div class="relative mb-4">
+    <input
+      id="password"
+      type="password"
+      placeholder="Password"
+      class="border w-full p-2 pr-10 rounded"
+    />
+    <span
+      onclick="togglePassword()"
+      style="cursor: pointer;"
+      class="absolute right-3 top-2.5 text-purple-700 underline"
+    >
+      Show Password
+    </span>
+  </div>
+
+  <button
+    onclick="login()"
+    class="bg-purple-700 text-white w-full p-2 rounded"
+  >
+    Login
+  </button>
+
+  <p class="text-sm text-center mt-3">
+    New user?
+    <a href="register.html" class="text-purple-700 underline">
+      Register
+    </a>
+  </p>
+</div>
+
+<script src="../src/js/auth.js"></script>
+</body>
+</html>

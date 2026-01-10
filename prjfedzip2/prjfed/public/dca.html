@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>DCA Dashboard</title>
+  <link rel="stylesheet" href="../dist/output.css" />
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+<!-- NAVBAR -->
+<nav class="bg-purple-700 text-white px-6 py-4 flex justify-between items-center">
+  <h1 class="font-bold text-lg">Debt Collection Agency Portal</h1>
+  <a href="#" onclick="logout()" class="text-sm underline">Logout</a>
+</nav>
+
+<!-- ✅ WELCOME TEXT (ADDED) -->
+<div class="px-6 pt-4">
+  <h2 id="welcomeText" class="text-lg font-semibold text-gray-700"></h2>
+</div>
+
+<!-- 🔹 CHATBOT (FIXED – SAME AS CUSTOMER) -->
+<div id="chatbot"
+     class="fixed top-20 right-4 w-80 bg-white shadow-lg rounded-lg border z-50">
+
+  <div class="bg-purple-700 text-white p-3 font-semibold rounded-t-lg">
+    🤖 Help Bot
+  </div>
+
+  <div id="chatMessages" class="h-64 overflow-y-auto p-3 text-sm space-y-2">
+    <div class="text-gray-600">
+      Hi 👋 DCA! Need help?
+    </div>
+  </div>
+
+  <div class="flex border-t">
+    <input id="chatInput" type="text"
+      placeholder="Type your message..."
+      class="flex-1 p-2 text-sm outline-none" />
+    <button onclick="sendMessage()"
+      class="bg-purple-700 text-white px-4 text-sm">
+      Send
+    </button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="p-6">
+  <h2 class="text-xl font-semibold mb-4">Assigned Cases</h2>
+
+  <div class="bg-white p-6 rounded shadow">
+    <table class="w-full border">
+      <thead class="bg-gray-200">
+        <tr>
+          <th class="p-2">Customer</th>
+          <th class="p-2">Amount</th>
+          <th class="p-2">Due Date</th>
+          <th class="p-2">Status</th>
+          <th class="p-2">Approval</th>
+          <th class="p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="dcaTable"></tbody>
+    </table>
+  </div>
+</div>
+
+<script src="../src/js/auth.js"></script>
+<script src="../src/js/dca.js"></script>
+
+<!-- CHATBOT SCRIPT -->
+<script>
+function sendMessage() {
+  const i = chatInput.value.trim();
+  if (!i) return;
+  chatMessages.innerHTML += `<div class="text-right"><span class="bg-purple-100 px-2 py-1 rounded">${i}</span></div>`;
+  setTimeout(() => {
+    chatMessages.innerHTML += `<div class="text-left"><span class="bg-gray-200 px-2 py-1 rounded">DCA help ready ✅</span></div>`;
+  }, 400);
+  chatInput.value = "";
+}
+</script>
+
+<!-- ✅ WELCOME SCRIPT (ADDED) -->
+<script>
+const userData = JSON.parse(localStorage.getItem("user"));
+if (userData && userData.username) {
+  document.getElementById("welcomeText").innerText =
+    `Welcome, ${userData.username} 👋`;
+}
+</script>
+
+</body>
+</html>
